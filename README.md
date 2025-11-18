@@ -8,10 +8,15 @@ other contributors.**
 
 Official Documentation: https://manim-physics.readthedocs.io/en/latest/
 
-Contributors: 
+Contributors:
 - [**pdcxs**](https://github.com/pdcxs)
 - [**Matheart**](https://github.com/Matheart)
 - [**icedcoffeeee**](https://github.com/icedcoffeeee)
+
+# Requirements
+
+- Python 3.10 through 3.13
+- [Manim Community Edition](https://www.manim.community/) ``0.19.x``
 
 # Installation
 `manim-physics` is a package on pypi, and can be directly installed using pip:

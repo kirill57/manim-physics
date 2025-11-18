@@ -3,12 +3,12 @@
 from __future__ import annotations
 from typing import Iterable
 
-from manim import config
 from manim.mobject.geometry.line import Line
 from manim.utils.space_ops import angle_of_vector, rotate_vector
 import numpy as np
 
 from .lenses import Lens, antisnell, intersection, snell
+from .._compat import is_opengl_renderer
 
 __all__ = [
     "Ray",
@@ -85,9 +85,9 @@ class Ray(Line):
                 )
             else:
                 nppcc = (
-                    self.n_points_per_cubic_curve
-                    if config.renderer != "opengl"
-                    else self.n_points_per_curve
+                    self.n_points_per_curve
+                    if is_opengl_renderer()
+                    else self.n_points_per_cubic_curve
                 )
                 self.points = self.points[:-nppcc]
                 self.add_line_to(intersects[1])
