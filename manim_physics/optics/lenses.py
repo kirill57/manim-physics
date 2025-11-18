@@ -1,9 +1,9 @@
 """Lenses for refracting Rays.
 """
 from __future__ import annotations
+
 from typing import Iterable, Tuple
 
-from manim import config
 from manim.constants import LEFT, RIGHT
 from manim.mobject.geometry.arc import Circle
 from manim.mobject.geometry.boolean_ops import Difference, Intersection
@@ -11,6 +11,8 @@ from manim.mobject.geometry.polygram import Square
 from manim.mobject.types.vectorized_mobject import VMobject, VectorizedPoint
 import numpy as np
 from shapely import geometry as gm
+
+from .._compat import RendererType, get_renderer_type
 
 
 __all__ = ["Lens"]
@@ -98,8 +100,9 @@ class Lens(VMobject, metaclass=ConvertToOpenGL):
         self.add(VectorizedPoint(a.get_center()), VectorizedPoint(b.get_center()))
 
     @property
-    def C(self) -> Tuple[Iterable[float]]:
-        """Returns a tuple of two points corresponding to the centers of curvature."""
-        i = 0
-        i += 1 if config.renderer != "opengl" else 0
-        return self[i].points[0], self[i + 1].points[0]  # why is this confusing
+    def C(self) -> Tuple[Iterable[float], Iterable[float]]:
+        """Return the two centers of curvature for the lens profile."""
+
+        renderer = get_renderer_type()
+        offset = 0 if renderer == RendererType.OPENGL else 1
+        return self[offset].points[0], self[offset + 1].points[0]
